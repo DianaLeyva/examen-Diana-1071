@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,69 +9,99 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.green[100],
         appBar: AppBar(
           title: const Text('Diana Leyva Mat: 1071'),
-          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.green,
         ),
-        body: ListView(
-          children: <Widget>[
-            // Separador 1
-            ListTile(
-              title: const Text('Grupo de colores 1',
-                  style: TextStyle(fontWeight: FontWeight.bold)), // Icono de paleta
+        body: Column(
+          children: [
+            Container(
+              color: Colors.green,
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Icon(Icons.home, color: Colors.white),
+                  Column(
+                    children: [
+                      Stack(
+                        alignment: Alignment.bottomLeft,
+                        children: [
+                          const Icon(Icons.person, color: Colors.white, size: 30),
+                          Positioned(
+                            left: 2,
+                            bottom: 2,
+                            child: Container(
+                              width: 12,
+                              height: 12,
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(Icons.add, size: 10, color: Colors.green),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 2),
+                      Container(
+                        width: 20,
+                        height: 2,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                  const Icon(Icons.notifications, color: Colors.white),
+                  const Icon(Icons.menu, color: Colors.white),
+                ],
+              ),
             ),
-            // Grupo de 3 botones
-            buildColorCard(Colors.pinkAccent, 'rosa', Icons.favorite),
-            buildColorCard(Colors.blue, 'azul', Icons.water_drop),
-            buildColorCard(Colors.green, 'verde', Icons.nature),
-            // Separador 2
-            ListTile(
-              title: const Text('Grupo de colores 2',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+            Expanded(
+              child: ListView(
+                children: const [
+                  UserCard(name: 'Junaid Durrani', role: 'Programmer', imageUrl: 'Captura.PNG'),
+                  UserCard(name: 'Ahmed Khan', role: 'Data Scientist', imageUrl: 'Captura.PNG'),
+                  UserCard(name: 'Aqib', role: 'Project Manager', imageUrl: 'Captura.PNG'),
+                  UserCard(name: 'Zaid', role: 'Team Leader', imageUrl: 'Captura.PNG'),
+                  UserCard(name: 'Saqib', role: 'Developer', imageUrl: 'Captura.PNG'),
+                ],
+              ),
             ),
-            // Grupo de 2 botones
-            buildColorCard(Colors.red, 'rojo', Icons.warning),
-            buildColorCard(Colors.orange, 'naranja', Icons.lightbulb),
-            ListTile(
-              title: const Text('Grupo de colores 3',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
-            ),
-            buildColorCard(Colors.brown, 'cafe', Icons.coffee),
-            buildColorCard(Colors.yellow, 'amarillo', Icons.sunny),
           ],
         ),
       ),
     );
   }
+}
 
-  Widget buildColorCard(Color color, String text, IconData icon) {
+class UserCard extends StatelessWidget {
+  final String name;
+  final String role;
+  final String imageUrl;
+
+  const UserCard({super.key, required this.name, required this.role, required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
     return Card(
-      elevation: 4,
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: InkWell(
-        onTap: () {
-          print('Tocado: $text');
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            children: <Widget>[
-              CircleAvatar(
-                backgroundColor: color,
-                radius: 15,
-                child: Icon(
-                  icon,
-                  size: 18,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Text(text),
-              ),
-              const Icon(Icons.chevron_right), // Flecha al final
-            ],
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundImage: NetworkImage(imageUrl),
+        ),
+        title: Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: Text(role),
+        trailing: ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.pink[100],
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           ),
+          child: const Text('Invite'),
         ),
       ),
     );
