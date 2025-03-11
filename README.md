@@ -2,7 +2,7 @@
 
 ## examen Diana Leyva 1071
 
-![alt text](<shapes at 25-03-10 11.57.30.png>)
+![alt text](<shapes at 25-03-10 11.57.30-1.png>)
 
 ## Getting Started
 
